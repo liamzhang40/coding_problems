@@ -2,20 +2,26 @@
 
 
 function permutations(nums) {
-    // if (nums.length === 1) return [nums];
 
-    // const num = nums.pop();
-    // const thisPermutation = [];
-    // const prevPermutation = permutations(nums);
+    // function _permute(idx) {
+    //     if (idx === 0) return [[nums[idx]]];
+    
+    //     const num = nums[idx];
+    //     const thisPermutation = [];
+    //     const prevPermutation = _permute(idx - 1);
+    
+    //     prevPermutation.forEach(subArr => {
+    //         for(let i = 0; i < subArr.length + 1; i++) {
+    //             const arr = subArr.slice(0, i).concat([num]).concat(subArr.slice(i));
+    //             thisPermutation.push(arr);
+    //         }
+    //     });
+    
+    //     return thisPermutation;
+    // }
 
-    // prevPermutation.forEach(subArr => {
-    //     for(let i = 0; i < subArr.length + 1; i++) {
-    //         const arr = subArr.slice(0, i).concat([num]).concat(subArr.slice(i))
-    //         thisPermutation.push(arr);
-    //     }
-    // });
+    // return _permute(nums.length - 1);
 
-    // return thisPermutation;
 
     const res = [];
 
