@@ -16,6 +16,21 @@ function letterCombinations(digits) {
     };
 
 
+    //     if (!digits.length) return [];
+    //     let res = pad[digits[0]].split("");
+
+    //     for(let i = 1; i < digits.length; i++) {
+    //         temp = [];
+    //         res.forEach(word => {
+    //             pad[digits[i]].split("").forEach(letter => {
+    //                 temp.push(word + letter)
+    //             })
+    //         })
+    //         res = temp;
+    //     }
+
+    //     return res
+
     //backtrack
     const res = [];
     const _backtrack = (letters, digitsIdx) => {
@@ -26,6 +41,7 @@ function letterCombinations(digits) {
                 const temp = letters;
                 letters += pad[digits[i]][j];
                 _backtrack(letters, i + 1);
+                // not digitIdx + 1 as second argument!!
                 letters = temp;
             }
         }
@@ -36,3 +52,5 @@ function letterCombinations(digits) {
 
     return res;
 }
+
+letterCombinations("23");
