@@ -19,7 +19,7 @@ function subsets(nums) {
     // return _sub(nums.length - 1);
 
 
-    // backtracking
+    // backtrack
     const res = [];
     function _backtrack(sets, idx) {
         res.push(sets.slice());
