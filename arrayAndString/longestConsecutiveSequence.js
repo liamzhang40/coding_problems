@@ -14,6 +14,7 @@ function longestConsecutive(nums) {
             const sum = left + right + 1;
             max = Math.max(max, sum);
             hash[num] = sum;
+            // update the boundary numbers' length value
             hash[num - left] = sum;
             hash[num + right] = sum;
         }

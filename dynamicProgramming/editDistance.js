@@ -26,6 +26,7 @@ function editDistance (word1, word2) {
     //     }
     // }
 
+    
     const memo = [];
     for (let i = 0; i < word1.length; i++) {
         memo.push([]);
