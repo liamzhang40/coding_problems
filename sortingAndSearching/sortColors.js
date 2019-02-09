@@ -9,8 +9,24 @@ function sortColors(arr) {
     let zeroCount = 0;
     let oneCount = 0;
 
-    
+    for(let i = 0; i < arr.length; i++) {
+        if (arr[i] === 0) {
+            [arr[i], arr[zeroCount]] = [arr[zeroCount], arr[i]];
 
+            if (arr[i] === 1) {
+                [arr[i], arr[zeroCount + oneCount]] = [arr[zeroCount + oneCount], arr[i]];
+            }
+        
+            zeroCount += 1;
+        } else if (arr[i] === 1) {
+            [arr[i], arr[zeroCount + oneCount]] = [arr[zeroCount + oneCount], arr[i]];
+            oneCount += 1;
+        }
+    }
+
+    return arr;
+
+    // or go through the array to count all 0, 1, 2
 }
 
 console.log(sortColors([2, 0, 2, 1, 1, 0]));
