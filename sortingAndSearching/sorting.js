@@ -128,4 +128,38 @@ function shellSort(arr) {
   return arr;
 }
 
-console.log(shellSort([4,7,5,1,9,3,5,0,2]));
+function countingSort(arr, exp) {
+  const count = new Array(10).fill(0);
+  // creating an array of count for the current digits;
+  for(let i = 0; i < arr.length; i++) {
+    count[Math.floor(arr[i] / exp) % 10] += 1;
+  }
+  // increment the frequency to match correct index;
+  for(let i = 1; i < count.length; i++) {
+    count[i] += count[i - 1];
+  }
+  // place numbers into output from the end of array to maintain previous order
+  const output = new Array(arr.length);
+  for(let i = arr.length - 1; i >= 0; i--) {
+    const outputIdx = count[Math.floor(arr[i] / exp) % 10] - 1;
+    output[outputIdx] = arr[i];
+    count[Math.floor(arr[i] / exp) % 10] -= 1;
+  }
+  
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = output[i];
+  }
+}
+
+function radixSort(arr) {
+  const max = Math.max(...arr);
+  let exp = 1;
+  while (Math.floor(max / exp)) {
+    countingSort(arr, exp);
+    exp *= 10;
+  }
+
+  return arr;
+}
+
+console.log(radixSort([802, 2, 24, 45, 66, 75, 170, 90]));
