@@ -1,4 +1,5 @@
 require_relative "static_array"
+require "byebug"
 
 class DynamicArray
   attr_reader :length
@@ -12,6 +13,10 @@ class DynamicArray
     store.length
   end
 
+  def length
+    @count
+  end
+
   # O(1)
   def [](index)
     store[index]
@@ -19,12 +24,12 @@ class DynamicArray
 
   # O(1)
   def []=(index, value)
-    if index >= count
-      (index - count).times { push(nil) }
+    if index >= @count
+      (index - @count).times { push(nil) }
       push(value)
     elsif index < 0
-      return nil if index < -count 
-      store[count + index] = value
+      return nil if index < -@count 
+      store[@count + index] = value
     else 
       store[index] = value
     end
@@ -32,32 +37,45 @@ class DynamicArray
 
   # O(1)
   def pop
-    return nil if count == 0
-    last_el = store[count - 1]
+    return nil if @count == 0
+    last_el = store[@count - 1]
     @count -= 1
-    return last_el
+    
+    last_el
   end
 
   # O(1) ammortized; O(n) worst case. Variable because of the possible
   # resize.
   def push(val)
-    resize! if (count === capacity)
+    self.resize! if @count == capacity
 
-    store[count] = val
+    store[@count] = val
     @count += 1
     self
   end
 
   # O(n): has to shift over all the elements.
   def shift
+    return nil if @count == capacity
+    first_el = store[0]
+    (1...@count).each {|idx| store[idx - 1] = store[idx]}
+    @count -= 1
+    
+    first_el
   end
 
   # O(n): has to shift over all the elements.
   def unshift(val)
+    resize! if @count == capacity
+
+    (1..@count).to_a.reverse.each {|idx| store[idx] = store[idx - 1]}
+    store[0] = val
+    @count += 1
+    self
   end
 
   protected
-  attr_accessor :capacity, :store
+  attr_accessor :store
   attr_writer :length
 
   def check_index(index)
@@ -65,5 +83,9 @@ class DynamicArray
 
   # O(n): has to copy over all the elements to the new store.
   def resize!
+    new_store = StaticArray.new(capacity * 2)
+    @count.times {|idx| new_store[idx] = store[idx]}
+
+    @store = new_store
   end
 end

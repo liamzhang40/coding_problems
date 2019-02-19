@@ -2,7 +2,7 @@
 class StaticArray
 
   def initialize(capacity)
-    @store = Array.new(capacity);
+    @store = Array.new(capacity, "empty");
   end
 
   # O(1)
