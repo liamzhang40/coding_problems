@@ -50,7 +50,7 @@ class MinHeap {
 
   heapifyUp() {
     let idx = this.heapSize() - 1;
-    while (this.hasParentNode && this.arr[this.getParentIndex(idx)] > this.arr[idx]) {
+    while (this.hasParentNode(idx) && this.arr[this.getParentIndex(idx)] > this.arr[idx]) {
       this.swap(this.getParentIndex(idx), idx);
       idx = this.getParentIndex(idx);
     }
